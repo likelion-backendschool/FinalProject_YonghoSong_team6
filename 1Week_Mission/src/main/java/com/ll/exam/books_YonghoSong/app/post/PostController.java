@@ -1,10 +1,13 @@
 package com.ll.exam.books_YonghoSong.app.post;
 
+import com.ll.exam.books_YonghoSong.app.post.dto.RequestPostModify;
+import com.ll.exam.books_YonghoSong.app.post.dto.RequestPostRegister;
 import com.ll.exam.books_YonghoSong.app.post.dto.ResponsePost;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +19,7 @@ import java.util.List;
 public class PostController {
     /**
      * todo
-     * Primary : 글 작성, 글 수정, 글 리스트, 글 삭제
+     * Primary : 글 작성 o, 글 수정 o, 글 리스트 O, 글 삭제
      *
      */
 
@@ -27,7 +30,7 @@ public class PostController {
     @ResponseBody
     String mainPage(){
 
-        return "성공!";
+        return "스프링 세팅 성공, 시큐리티 설정 성공";
     }
 
     @GetMapping("/post/list")
@@ -40,14 +43,20 @@ public class PostController {
        return postService.findPostById(id);
     }
 
-    @GetMapping("/post/write")
-    void write(){}
+    @PostMapping("/post/write")
+    long write(RequestPostRegister requestPostRegister){
+        return postService.createPost(requestPostRegister);
+    }
 
     @GetMapping("/post/{id}/modify")
-    void modify(){}
+    void modifyPage(@RequestParam long id){
+        //front
+    }
 
     @PostMapping("/post/{id}/modify")
-    void modifyPost(){}
+    long modify(@RequestParam long id, @RequestBody RequestPostModify requestPostModify){
+        return postService.updatePost(id,requestPostModify);
+    }
 
 
 }

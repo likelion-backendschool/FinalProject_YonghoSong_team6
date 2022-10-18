@@ -11,9 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Getter
-public class RequestPostRegister {
+public class RequestPostModify {
 
-    private String authorName;
     private String subject;
     private String content;
     private String contentHtml;

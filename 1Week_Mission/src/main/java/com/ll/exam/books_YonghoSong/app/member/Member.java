@@ -28,16 +28,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @SuperBuilder
 @EntityListeners(AuditingEntityListener.class)
-public class Member{
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    private Long id;
-    @CreatedDate
-    private LocalDateTime createDate;
-    @LastModifiedDate
-    private LocalDateTime modifyDate;
-    //--base--
-
+public class Member extends BaseEntity{
     @Column(unique = true)
     private String username;
     //@JsonIgnore
@@ -46,4 +37,5 @@ public class Member{
     private String email;
     //private int authLevel;
 
+    public Member(long id){super(id);}
 }

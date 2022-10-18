@@ -2,6 +2,7 @@ package com.ll.exam.books_YonghoSong.app.base;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+@Getter
 @SuperBuilder
 @MappedSuperclass
 @NoArgsConstructor(access = PROTECTED)
@@ -32,4 +34,8 @@ public class BaseEntity {
     private LocalDateTime createDate;
     @LastModifiedDate
     private LocalDateTime modifyDate;
+
+    public BaseEntity(long id) {
+        this.id = id;
+    }
 }

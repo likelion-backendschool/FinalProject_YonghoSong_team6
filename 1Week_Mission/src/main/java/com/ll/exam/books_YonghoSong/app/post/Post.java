@@ -30,4 +30,6 @@ public class Post extends BaseEntity {
     private String subject;
     private String content;
     private String contentHtml;
+
+    public Post(long id){super(id);}
 }

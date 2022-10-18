@@ -56,4 +56,10 @@ public class MemberService {
 
        return member.getUsername();
     }
+
+    public Member findByUsername(String username){
+        Member member = memberRepository.findByUsername(username)
+                .orElseThrow(() -> new NoSuchElementException("해당 닉네임의 회원이 없습니다."));
+        return member;
+    }
 }
