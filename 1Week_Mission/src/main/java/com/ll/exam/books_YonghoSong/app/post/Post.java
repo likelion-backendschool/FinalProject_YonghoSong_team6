@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 
@@ -24,6 +25,7 @@ public class Post extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
+    @ToString.Exclude
     private Member author;
     private String subject;
     private String content;
