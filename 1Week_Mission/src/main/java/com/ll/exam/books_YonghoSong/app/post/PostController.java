@@ -3,6 +3,7 @@ package com.ll.exam.books_YonghoSong.app.post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -10,7 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class PostController {
 
     @GetMapping("/")
-    void mainPage(){}
+    @ResponseBody
+    String mainPage(){
+
+        return "성공!";
+    }
 
     @GetMapping("/post/list")
     void list(){}

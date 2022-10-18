@@ -3,3 +3,8 @@ spring:
     active: dev
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
+
+
+  server:
+    port: 8084
+
