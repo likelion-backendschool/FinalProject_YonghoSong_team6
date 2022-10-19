@@ -14,7 +14,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.yml")
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -43,7 +43,7 @@ public class EmailService {
 
         message.setText(msg, "utf-8", "html"); //내용, charset타입, subtype
         message.setFrom(new
-                InternetAddress(id,"prac_Admin")); //보내는 사람의 메일 주소, 보내는 사람 이름
+                InternetAddress(id,"MutBook_Admin")); //보내는 사람의 메일 주소, 보내는 사람 이름
 
         return message;
     }
