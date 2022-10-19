@@ -19,7 +19,7 @@ import java.util.List;
 public class PostController {
     /**
      * todo
-     * Primary : 글 작성 o, 글 수정 o, 글 리스트 O, 글 삭제
+     * Primary : 글 작성 O, 글 수정 O, 글 리스트 O, 글 삭제 O , 해시태그
      *
      */
 
@@ -35,6 +35,7 @@ public class PostController {
 
     @GetMapping("/post/list")
     List<Post> list(){
+
         return postService.findAll();
     }
 
@@ -44,13 +45,14 @@ public class PostController {
     }
 
     @PostMapping("/post/write")
-    long write(RequestPostRegister requestPostRegister){
+    long write(@RequestBody RequestPostRegister requestPostRegister){
         return postService.createPost(requestPostRegister);
     }
 
     @GetMapping("/post/{id}/modify")
-    void modifyPage(@RequestParam long id){
+    String modifyPage(@RequestParam long id){
         //front
+        return "";
     }
 
     @PostMapping("/post/{id}/modify")
@@ -58,6 +60,11 @@ public class PostController {
         return postService.updatePost(id,requestPostModify);
     }
 
+    @GetMapping("/post/{id}/delete")
+    void delete(@RequestParam long id)
+    {
+        postService.deletePost(id);
+    }
 
 }
 

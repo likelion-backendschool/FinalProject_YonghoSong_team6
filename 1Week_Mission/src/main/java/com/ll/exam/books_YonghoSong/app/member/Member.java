@@ -33,9 +33,12 @@ public class Member extends BaseEntity{
     private String username;
     //@JsonIgnore
     private String password;
+    @Column(unique = true)
     private String nickname;
+    @Column(unique = true)
     private String email;
-    //private int authLevel;
+    @Builder.Default
+    private int authLevel=1;
 
     public Member(long id){super(id);}
 }

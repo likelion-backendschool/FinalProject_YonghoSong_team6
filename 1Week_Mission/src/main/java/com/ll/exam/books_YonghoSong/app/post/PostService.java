@@ -41,19 +41,19 @@ public class PostService {
         return posts;
     }
 
-
-   // @Transactional
+    @Transactional
     public long createPost(RequestPostRegister requestPostRegister) {
-        Post post =Post.builder()
+        Post post = Post.builder()
                 .subject(requestPostRegister.getSubject())
                 .content(requestPostRegister.getContent())
                 .contentHtml(requestPostRegister.getContentHtml())
-                .author(memberService.findByUsername(requestPostRegister.getAuthorName()))
+                .author(memberService.findByNickname(requestPostRegister.getAuthorName()))
                 .build();
 
         return postRepository.save(post).getId();
     }
 
+    @Transactional
     public long updatePost(long id, RequestPostModify requestPostModify) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("해당 글이 없습니다."));
@@ -61,5 +61,11 @@ public class PostService {
         post.setSubject(requestPostModify.getSubject());
         post.setContentHtml(requestPostModify.getContentHtml());
         return post.getId();
+    }
+
+    public void deletePost(long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("해당 글이 없습니다."));
+        postRepository.delete(post);
     }
 }
