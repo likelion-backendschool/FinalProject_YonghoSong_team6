@@ -1,18 +1,23 @@
 package com.ll.exam.books_YonghoSong.app.member;
 
+import com.ll.exam.books_YonghoSong.app.mail.EmailService;
 import com.ll.exam.books_YonghoSong.app.member.dto.create.RequestCreateMember;
 import com.ll.exam.books_YonghoSong.app.member.dto.modify.RequestModifyMember;
 import lombok.RequiredArgsConstructor;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
+
+
 
 @Service
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService
 
     long createMember (RequestCreateMember requestCreateMember){
 
@@ -28,6 +33,15 @@ public class MemberService {
                 .username(requestCreateMember.getUsername())
                 .build();
         long id = memberRepository.save(member).getId();
+
+        try {
+            emailService.sendSimpleMessage(requestCreateMember.getEmail());
+        }catch (Exception e)
+        {
+            System.out.println(e);
+            System.out.println("이메일 발송에 오류가 있씁니다.");
+        }
+
         return id;
     }
 
