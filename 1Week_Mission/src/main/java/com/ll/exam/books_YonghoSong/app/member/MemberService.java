@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final EmailService emailService
+    private final EmailService emailService;
 
     long createMember (RequestCreateMember requestCreateMember){
 
@@ -38,7 +38,7 @@ public class MemberService {
             emailService.sendSimpleMessage(requestCreateMember.getEmail());
         }catch (Exception e)
         {
-            System.out.println(e);
+            System.out.println(e.getMessage());
             System.out.println("이메일 발송에 오류가 있씁니다.");
         }
 
