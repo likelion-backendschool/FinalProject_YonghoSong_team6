@@ -41,7 +41,7 @@ public class EmailService {
         msg += "<p style=\"font-size: 17px; padding-right: 30px; padding-left: 30px;\">멋북 회원가입을 환영합니다.</p>";
 
 
-        message.setText(msg, "utf-8", "html"); //내용, charset타입, subtype
+        message.setText(msg, "utf-8", "html"); //내용, charset 타입, subtype
         message.setFrom(new
                 InternetAddress(id,"MutBook_Admin")); //보내는 사람의 메일 주소, 보내는 사람 이름
 

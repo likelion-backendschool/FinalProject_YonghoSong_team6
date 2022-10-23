@@ -1,18 +1,23 @@
 package com.ll.exam.books_YonghoSong.app.member;
 
 
+import com.ll.exam.books_YonghoSong.app.base.Rq;
 import com.ll.exam.books_YonghoSong.app.member.dto.create.RequestCreateMember;
 import com.ll.exam.books_YonghoSong.app.member.dto.login.RequestLogin;
 import com.ll.exam.books_YonghoSong.app.member.dto.modify.RequestModifyMember;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class MemberController {
+
+    private final Rq rq;
     /**
      * todo
      * Primary : 회원가입 O, 회원정보수정 O, 로그인 O, 로그아웃 O, 아이디찾기 O
@@ -41,6 +46,7 @@ public class MemberController {
     }
 
     @GetMapping("/member/login")
+    @ResponseBody
     String loginPage(){
         return """
                 <html layout:decorate="~{layout}">
@@ -99,7 +105,11 @@ public class MemberController {
     }
 
     @PostMapping("/member/modifyPassword")
-    void modifyPassword(){}
+    void modifyPassword(String oldPassword, String password){
+        Member member = rq.getMember();
+
+        memberService.updatePassword(member, password, oldPassword);
+    }
 
     @GetMapping("/member/findUsername")
     void findUsernamePage(){
