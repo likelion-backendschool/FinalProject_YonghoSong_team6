@@ -1,32 +1,33 @@
-package com.ll.exam.books_YonghoSong.app.product;
-
+package com.ll.exam.books_YonghoSong.app.product.cart;
 
 import com.ll.exam.books_YonghoSong.app.base.BaseEntity;
 import com.ll.exam.books_YonghoSong.app.member.Member;
-import lombok.AllArgsConstructor;
+import com.ll.exam.books_YonghoSong.app.product.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @SuperBuilder
-public class Product extends BaseEntity {
+@ToString(callSuper = true)
+public class CartItem extends BaseEntity {
+
+    @ManyToOne(fetch = LAZY)
+    private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "author_id")
-    private Member author;
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-
-
-    private String subject;
-    private long price;
 }

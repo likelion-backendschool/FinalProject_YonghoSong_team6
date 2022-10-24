@@ -2,7 +2,6 @@ package com.ll.exam.books_YonghoSong.app.security;
 
 import com.ll.exam.books_YonghoSong.app.member.Member;
 import com.ll.exam.books_YonghoSong.app.member.MemberRepository;
-import com.ll.exam.books_YonghoSong.app.member.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

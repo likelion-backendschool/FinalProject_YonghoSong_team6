@@ -1,5 +1,6 @@
 package com.ll.exam.books_YonghoSong.app.member;
 
+import com.ll.exam.books_YonghoSong.app.base.RsData;
 import com.ll.exam.books_YonghoSong.app.mail.EmailService;
 import com.ll.exam.books_YonghoSong.app.member.dto.create.RequestCreateMember;
 import com.ll.exam.books_YonghoSong.app.member.dto.modify.RequestModifyMember;
@@ -19,7 +20,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
 
-    long createMember (RequestCreateMember requestCreateMember){
+    public Member createMember (RequestCreateMember requestCreateMember){
 
         memberRepository.findByEmail(requestCreateMember.getEmail()).ifPresent(
                 member -> {throw new IllegalArgumentException("이메일이 중복되었습니다.");}
@@ -32,7 +33,7 @@ public class MemberService {
                 .password(passwordEncoder.encode(requestCreateMember.getPassword()))
                 .username(requestCreateMember.getUsername())
                 .build();
-        long id = memberRepository.save(member).getId();
+       //long id = memberRepository.save(member).getId();
 
         try {
             emailService.sendSimpleMessage(requestCreateMember.getEmail());
@@ -42,7 +43,7 @@ public class MemberService {
             System.out.println("이메일 발송에 오류가 있씁니다.");
         }
 
-        return id;
+        return member;
     }
 
     public long updateMember(RequestModifyMember requestModifyMember) {
@@ -75,7 +76,6 @@ public class MemberService {
         return id;
     }
 
-
     public String findUsernameByEmail(String email) {
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new NoSuchElementException("해당 Email 에 해당하는 맴버가 없습니다."));
@@ -92,5 +92,16 @@ public class MemberService {
         Member member = memberRepository.findByNickname(authorName)
                 .orElseThrow(() -> new NoSuchElementException("해당 닉네임의 회원이 없습니다."));
         return member;
+    }
+
+    public void updatePassword(Member member, String password, String oldPassword) {
+        Member _member = memberRepository.findById(member.getId())
+                .orElseThrow(() -> new NoSuchElementException("MEMBER ID 잘못됨"));
+        if (passwordEncoder.matches(oldPassword, _member.getPassword()) == false) {
+            throw new RuntimeException("비밀번호가 일치하지 않습니다."); // 수정 필요
+        }
+
+        _member.setPassword(passwordEncoder.encode(password));
+        return;
     }
 }
