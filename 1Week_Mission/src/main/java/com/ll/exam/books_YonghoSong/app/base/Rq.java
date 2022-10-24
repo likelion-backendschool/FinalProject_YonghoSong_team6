@@ -3,6 +3,7 @@ package com.ll.exam.books_YonghoSong.app.base;
 
 import com.ll.exam.books_YonghoSong.app.member.Member;
 import com.ll.exam.books_YonghoSong.app.security.dto.MemberContext;
+import com.ll.exam.books_YonghoSong.util.Ut;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

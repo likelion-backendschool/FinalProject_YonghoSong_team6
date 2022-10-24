@@ -20,7 +20,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
 
-    long createMember (RequestCreateMember requestCreateMember){
+    public Member createMember (RequestCreateMember requestCreateMember){
 
         memberRepository.findByEmail(requestCreateMember.getEmail()).ifPresent(
                 member -> {throw new IllegalArgumentException("이메일이 중복되었습니다.");}
@@ -33,7 +33,7 @@ public class MemberService {
                 .password(passwordEncoder.encode(requestCreateMember.getPassword()))
                 .username(requestCreateMember.getUsername())
                 .build();
-        long id = memberRepository.save(member).getId();
+       //long id = memberRepository.save(member).getId();
 
         try {
             emailService.sendSimpleMessage(requestCreateMember.getEmail());
@@ -43,7 +43,7 @@ public class MemberService {
             System.out.println("이메일 발송에 오류가 있씁니다.");
         }
 
-        return id;
+        return member;
     }
 
     public long updateMember(RequestModifyMember requestModifyMember) {

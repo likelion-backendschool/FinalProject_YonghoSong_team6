@@ -32,7 +32,7 @@ public class MemberController {
     }
 
     @PostMapping("/member/join")
-    long join(@RequestBody RequestCreateMember requestCreateMember){
+    Member join(@RequestBody RequestCreateMember requestCreateMember){
         /*
         * http://localhost:8080/member/join
         *
@@ -41,8 +41,7 @@ public class MemberController {
         * "email" : "spphire2@naver.com"
         *
         * */
-        long id = memberService.createMember(requestCreateMember);
-        return id;
+        return memberService.createMember(requestCreateMember);
     }
 
     @GetMapping("/member/login")
