@@ -1,4 +1,4 @@
-package com.ll.exam.books_YonghoSong.app.member;
+package com.ll.exam.books_YonghoSong.app.security;
 
 import lombok.Getter;
 
@@ -12,5 +12,5 @@ public enum UserRole {
         this.value = value;
     }
 
-    private String value;
+    private final String value;
 }
