@@ -15,6 +15,20 @@ public class OrderService {
     private final CartService cartService;
     private final OrderRepository orderRepository;
 
+    /**
+     * todo
+     * POST /order/create
+     * GET /order/list
+     * GET /order/{id}
+     * POST /order/{id}/cancel
+     * POST /order/{id}/pay
+     * POST /order/{id}/refund
+     */
+
+
+
+
+
 
 //    @Transactional
 //    public Order createFromCart(Member member) {
@@ -83,7 +97,4 @@ public class OrderService {
 //        orderRepository.save(order);
 //    }
 //
-
-
-
 }

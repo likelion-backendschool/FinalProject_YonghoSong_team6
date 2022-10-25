@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CartService {
     private final CartItemRepository cartItemRepository;
+    /** todo
+     * GET /cart/list
+     * POST /cart/remove/{productId}
+     * POST /cart/add/{productId}
+     */
 
     public CartItem addItem(Member member, int num) {
 
