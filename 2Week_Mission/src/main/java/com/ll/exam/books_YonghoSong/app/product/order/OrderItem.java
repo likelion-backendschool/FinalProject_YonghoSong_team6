@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 public class OrderItem extends BaseEntity {
     @ManyToOne // 1:1 인지 n:1 인지 확인할 것
     @JoinColumn(name = "order_id")
-    private Order order;
+    private Order Order;
 
     @ManyToOne
     @JoinColumn(name = "product_id")

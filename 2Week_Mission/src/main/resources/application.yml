@@ -3,6 +3,9 @@ spring:
     active: dev
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
+  output:
+  ansi:
+    enabled: ALWAYS
 
   mail:
     properties:
