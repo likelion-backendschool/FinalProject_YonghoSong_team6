@@ -35,11 +35,9 @@ public class MemberController {
     Member join(@RequestBody RequestCreateMember requestCreateMember){
         /*
         * http://localhost:8080/member/join
-        *
         * "username" : "TestAdmin",
         * "password" : "admin1234",
         * "email" : "spphire2@naver.com"
-        *
         * */
         return memberService.createMember(requestCreateMember);
     }
