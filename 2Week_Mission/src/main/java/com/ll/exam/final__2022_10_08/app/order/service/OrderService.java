@@ -1,11 +1,20 @@
 package com.ll.exam.final__2022_10_08.app.order.service;
 
+import com.ll.exam.final__2022_10_08.app.cart.entity.CartItem;
 import com.ll.exam.final__2022_10_08.app.cart.service.CartService;
+import com.ll.exam.final__2022_10_08.app.member.entity.Member;
 import com.ll.exam.final__2022_10_08.app.member.service.MemberService;
+import com.ll.exam.final__2022_10_08.app.order.entity.Order;
+import com.ll.exam.final__2022_10_08.app.order.entity.OrderItem;
 import com.ll.exam.final__2022_10_08.app.order.repository.OrderRepository;
+import com.ll.exam.final__2022_10_08.app.product.entity.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -30,46 +39,50 @@ public class OrderService {
 
 
 
-//    @Transactional
-//    public Order createFromCart(Member member) {
-//        // 입력된 회원의 장바구니 아이템들을 전부 가져온다.
-//
-//        // 만약에 특정 장바구니의 상품옵션이 판매불능이면 삭제
-//        // 만약에 특정 장바구니의 상품옵션이 판매가능이면 주문품목으로 옮긴 후 삭제
-//
-//        List<CartItem> cartItems = cartService.getItemsByMember(member);
-//
-//        List<OrderItem> orderItems = new ArrayList<>();
-//
-//        for (CartItem cartItem : cartItems) {
-//            ProductOption productOption = cartItem.getProductOption();
-//
-//            if (productOption.isOrderable(cartItem.getQuantity())) {
-//                orderItems.add(new OrderItem(productOption, cartItem.getQuantity()));
-//            }
-//
-//            cartService.deleteItem(cartItem);
-//        }
-//
-//        return create(member, orderItems);
-//    }
-//
-//    @Transactional
-//    public Order create(Member member, List<OrderItem> orderItems) {
-//        Order order = Order
-//                .builder()
-//                .member(member)
-//                .build();
-//
-//        for (OrderItem orderItem : orderItems) {
-//            order.addOrderItem(orderItem);
-//        }
-//
-//        orderRepository.save(order);
-//
-//        return order;
-//    }
-//
+    @Transactional
+    public Order createFromCart(Member member) {
+
+        List<CartItem> cartItems = cartService.getItemsByMember(member);
+        List<OrderItem> orderItems = new ArrayList<>();
+
+        // 입력된 회원의 장바구니 아이템들을 전부 가져온다.
+        // 만약에 특정 장바구니의 상품옵션이 판매불능이면 삭제
+        // 만약에 특정 장바구니의 상품옵션이 판매가능이면 주문품목으로 옮긴 후 삭제
+        for (CartItem cartItem : cartItems) {
+            Product product = cartItem.getProduct();
+
+            if (product.isOrderable()) {
+                orderItems.add(new OrderItem(product));
+            }
+
+            cartService.deleteItem(cartItem);
+        }
+
+        return create(member, orderItems);
+    }
+
+    @Transactional
+    public Order create(Member member, List<OrderItem> orderItems) {
+        Order order = Order
+                .builder()
+                .member(member)
+                .payDate(LocalDateTime.now())
+                .isCanceled(false)
+                .isPaid(false)
+                .isRefunded(false)
+                .readyStatus(false)
+                //.name("")
+                .build();
+
+        for (OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+        }
+
+        orderRepository.save(order);
+
+        return order;
+    }
+
 //    @Transactional
 //    public void payByRestCashOnly(Order order) {
 //        Member orderer = order.getMember();

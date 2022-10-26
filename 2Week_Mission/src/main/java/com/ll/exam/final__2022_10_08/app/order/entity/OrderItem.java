@@ -29,7 +29,6 @@ public class OrderItem extends BaseEntity {
     @ManyToOne(fetch = LAZY)
     private Product product;
 
-
     private LocalDateTime payDate; //결제날짜
     private int price; // 가격
     private int salePrice; // 실제판매가
@@ -38,4 +37,11 @@ public class OrderItem extends BaseEntity {
     private int payPrice; // 결제금액
     private int refundPrice; // 환불금액
     private boolean isPaid; // 결제여부
+
+    public OrderItem(Product product) {
+        this.product = product;
+        this.price = product.getPrice();
+        this.salePrice = product.getSalePrice();
+        this.wholesalePrice = product.getWholesalePrice();
+    }
 }

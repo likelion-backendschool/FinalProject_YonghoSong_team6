@@ -32,7 +32,6 @@ public class Order extends BaseEntity {
     @ManyToOne(fetch = LAZY)
     private Member member;
 
-
     private LocalDateTime payDate;
     private boolean readyStatus;
     private boolean isPaid;
@@ -40,13 +39,12 @@ public class Order extends BaseEntity {
     private boolean isRefunded;
     private String name;
 
-
     @Builder.Default
     @OneToMany(mappedBy = "order", cascade = ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
+
     public void addOrderItem(OrderItem orderItem) {
         orderItem.setOrder(this);
-
         orderItems.add(orderItem);
     }
 }
