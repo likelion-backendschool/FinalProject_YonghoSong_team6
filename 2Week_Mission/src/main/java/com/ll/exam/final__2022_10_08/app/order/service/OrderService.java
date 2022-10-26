@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -120,4 +121,12 @@ public class OrderService {
 //        orderRepository.save(order);
 //    }
 
+    public List<Order> findAllOrderByMember(Member member) {
+        return orderRepository.findAllByMemberId(member.getId());
+    }
+
+    public Order findById(long id) {
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("해당 ID (%d) 의 주문이 존재하지 않습니다.".formatted(id)));
+    }
 }

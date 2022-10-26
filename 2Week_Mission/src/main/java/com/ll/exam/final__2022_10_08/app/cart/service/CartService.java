@@ -43,4 +43,10 @@ public class CartService {
     public void deleteItem(CartItem cartItem) {
         cartItemRepository.delete(cartItem);
     }
+    public void deleteItem(Member member, Product product)
+    {
+        CartItem CartItem = cartItemRepository.findByMemberIdAndProductId(member.getId(), product.getId())
+                .orElseThrow(() -> new RuntimeException("삭제할 장바구니 항목이 존재하지 않습니다."));
+        deleteItem(CartItem);
+    }
 }
