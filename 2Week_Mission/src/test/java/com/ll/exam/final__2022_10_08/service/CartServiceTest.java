@@ -47,7 +47,7 @@ public class CartServiceTest {
     }
 
     @Test
-    @DisplayName("장바구니에서 도서를 제거할 수 있다.")
+    @DisplayName("장바구니에서 도서를 제거할 수 있다")
     void t2(){
         Member member = memberRepository.findById(1L).get();
         Product product = productRepository.findById(1L).get();
@@ -60,7 +60,7 @@ public class CartServiceTest {
     }
 
     @Test
-    @DisplayName("품목 리스트를 조회")
+    @DisplayName("장바구니의 품목 리스트를 조회")
     void t3(){
         Member member = memberRepository.findById(1L).get();
 
