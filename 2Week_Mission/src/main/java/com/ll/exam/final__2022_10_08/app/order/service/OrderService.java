@@ -92,8 +92,8 @@ public class OrderService {
 
     @Transactional
     public void payByRestCashOnly(Order order) {
-        Member orderer = order.getMember();
-        long restCash = orderer.getRestCash();
+        Member orderedMember = order.getMember();
+        long restCash = orderedMember.getRestCash();
         int payPrice = order.calculatePayPrice();
 
         if (payPrice > restCash) {
@@ -101,12 +101,12 @@ public class OrderService {
             //subCash 를 사용해도 될 듯
         }
 
-        memberService.addCash(orderer, payPrice * -1, "주문결제__예치금결제 : " + order.getName());
+        memberService.addCash(orderedMember, payPrice * -1, "주문결제__예치금결제 : " + order.getName());
 
         order.setPaymentDone();
         List<OrderItem> orderItems = order.getOrderItems();
         for(OrderItem item : orderItems) {
-            myBookService.addItem(orderer,item.getProduct());
+            myBookService.addItem(orderedMember,item.getProduct());
         }
         orderRepository.save(order);
     }
