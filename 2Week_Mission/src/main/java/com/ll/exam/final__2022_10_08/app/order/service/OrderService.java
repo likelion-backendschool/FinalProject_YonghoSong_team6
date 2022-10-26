@@ -112,14 +112,17 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-//    @Transactional
-//    public void refund(Order order) {
-//        int payPrice = order.getPayPrice();
-//        memberService.addCash(order.getMember(), payPrice, "주문환불__예치금환불");
-//
-//        order.setRefundDone();
-//        orderRepository.save(order);
-//    }
+    @Transactional
+    public void refund(Order order) {
+        int payPrice = order.calculatePayPrice();
+        if(order.isRefunded())
+            throw new RuntimeException("이미 환불 처리 되었습니다.");
+        if(order.isPaid())
+            throw new RuntimeException("미결제 주문입니다.");
+        memberService.addCash(order.getMember(), payPrice, "주문환불__예치금환불");
+        order.setRefundDone();
+        orderRepository.save(order);
+    }
 
     public List<Order> findAllOrderByMember(Member member) {
         return orderRepository.findAllByMemberId(member.getId());
@@ -128,5 +131,9 @@ public class OrderService {
     public Order findById(long id) {
         return orderRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("해당 ID (%d) 의 주문이 존재하지 않습니다.".formatted(id)));
+    }
+
+    public void cancelOrder(Order order) {
+        order.setCanceled(true);
     }
 }

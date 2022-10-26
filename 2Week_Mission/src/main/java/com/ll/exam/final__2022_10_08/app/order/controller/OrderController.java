@@ -4,7 +4,6 @@ import com.ll.exam.final__2022_10_08.app.base.rq.Rq;
 import com.ll.exam.final__2022_10_08.app.member.entity.Member;
 import com.ll.exam.final__2022_10_08.app.order.entity.Order;
 import com.ll.exam.final__2022_10_08.app.order.service.OrderService;
-import com.ll.exam.final__2022_10_08.app.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -24,13 +23,12 @@ public class OrderController {
      * GET /order/{id}
      * POST /order/create
      * POST /order/{id}/pay
-     * POST /order/{id}/cancel X
+     * POST /order/{id}/cancel ?
      * POST /order/{id}/refund X
      */
 
     private final Rq rq;
     private final OrderService orderService;
-    private final ProductService productService;
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/order/list")
@@ -65,4 +63,19 @@ public class OrderController {
         return Rq.redirectWithMsg("/order/"+id, "주문 결제가 완료 되었습니다.");
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/order/{id}/cancel")
+    public String cancelOrder(@RequestParam long id) {
+        Order order = orderService.findById(id);
+        orderService.cancelOrder(order);
+        return Rq.redirectWithMsg("/order/"+id, "주문 결제가 취소 되었습니다.");
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/order/{id}/refund")
+    public String refundOrder(@RequestParam long id){
+        Order order = orderService.findById(id);
+        orderService.refund(order);
+        return Rq.redirectWithMsg("/order/"+id, "주문번호 %d번 주문이 환불처리 되었습니다.");
+    }
 }
