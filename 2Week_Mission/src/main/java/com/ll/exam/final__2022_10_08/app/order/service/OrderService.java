@@ -4,6 +4,7 @@ import com.ll.exam.final__2022_10_08.app.cart.entity.CartItem;
 import com.ll.exam.final__2022_10_08.app.cart.service.CartService;
 import com.ll.exam.final__2022_10_08.app.member.entity.Member;
 import com.ll.exam.final__2022_10_08.app.member.service.MemberService;
+import com.ll.exam.final__2022_10_08.app.mybook.service.MyBookService;
 import com.ll.exam.final__2022_10_08.app.order.entity.Order;
 import com.ll.exam.final__2022_10_08.app.order.entity.OrderItem;
 import com.ll.exam.final__2022_10_08.app.order.repository.OrderRepository;
@@ -23,6 +24,7 @@ public class OrderService {
     private final MemberService memberService;
     private final CartService cartService;
     private final OrderRepository orderRepository;
+    private final MyBookService myBookService;
 
     /**
      * todo
@@ -33,11 +35,6 @@ public class OrderService {
      * POST /order/{id}/pay
      * POST /order/{id}/refund
      */
-
-
-
-
-
 
     @Transactional
     public Order createFromCart(Member member) {
@@ -63,6 +60,16 @@ public class OrderService {
 
     @Transactional
     public Order create(Member member, List<OrderItem> orderItems) {
+        String name;
+
+        try {
+            name = "\"" + orderItems.get(0).getProduct().getSubject() + "\"";
+            if(orderItems.size()>1)
+                name = name + " 외 " +(orderItems.size()-1) + "건";
+        } catch (Exception e) {
+            name = "이름 없는 주문 ";
+        }
+
         Order order = Order
                 .builder()
                 .member(member)
@@ -70,8 +77,8 @@ public class OrderService {
                 .isCanceled(false)
                 .isPaid(false)
                 .isRefunded(false)
-                .readyStatus(false)
-                //.name("")
+                .readyStatus(true)
+                .name(name)
                 .build();
 
         for (OrderItem orderItem : orderItems) {
@@ -83,24 +90,27 @@ public class OrderService {
         return order;
     }
 
-//    @Transactional
-//    public void payByRestCashOnly(Order order) {
-//        Member orderer = order.getMember();
-//
-//        long restCash = orderer.getRestCash();
-//
-//        int payPrice = order.calculatePayPrice();
-//
-//        if (payPrice > restCash) {
-//            throw new RuntimeException("예치금이 부족합니다.");
-//        }
-//
-//        memberService.addCash(orderer, payPrice * -1, "주문결제__예치금결제");
-//
-//        order.setPaymentDone();
-//        orderRepository.save(order);
-//    }
-//
+    @Transactional
+    public void payByRestCashOnly(Order order) {
+        Member orderer = order.getMember();
+        long restCash = orderer.getRestCash();
+        int payPrice = order.calculatePayPrice();
+
+        if (payPrice > restCash) {
+            throw new RuntimeException("예치금이 부족합니다.");
+            //subCash 를 사용해도 될 듯
+        }
+
+        memberService.addCash(orderer, payPrice * -1, "주문결제__예치금결제 : " + order.getName());
+
+        order.setPaymentDone();
+        List<OrderItem> orderItems = order.getOrderItems();
+        for(OrderItem item : orderItems) {
+            myBookService.addItem(orderer,item.getProduct());
+        }
+        orderRepository.save(order);
+    }
+
 //    @Transactional
 //    public void refund(Order order) {
 //        int payPrice = order.getPayPrice();
@@ -109,5 +119,5 @@ public class OrderService {
 //        order.setRefundDone();
 //        orderRepository.save(order);
 //    }
-//
+
 }

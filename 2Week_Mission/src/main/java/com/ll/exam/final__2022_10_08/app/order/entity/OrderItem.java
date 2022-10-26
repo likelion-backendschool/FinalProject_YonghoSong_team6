@@ -44,4 +44,11 @@ public class OrderItem extends BaseEntity {
         this.salePrice = product.getSalePrice();
         this.wholesalePrice = product.getWholesalePrice();
     }
+
+    public void setPaymentDone() {
+        this.pgFee = 0;
+        this.payPrice = salePrice;
+        this.isPaid = true;
+        this.payDate = LocalDateTime.now();
+    }
 }

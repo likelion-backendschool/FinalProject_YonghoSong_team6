@@ -23,8 +23,6 @@ public class CartService {
     public CartItem addItem(Member member, Product product) {
         CartItem oldCartItem = cartItemRepository.findByMemberIdAndProductId(member.getId(), product.getId())
                 .orElse(null);
-
-
         if ( oldCartItem != null )
             return oldCartItem;
         //이미 장바구니에 있다면 기존 사항을 반환
@@ -34,7 +32,6 @@ public class CartService {
                 .product(product)
                 .build();
         cartItemRepository.save(cartItem);
-
         return cartItem;
         //새로 추가하고 반환
     }
