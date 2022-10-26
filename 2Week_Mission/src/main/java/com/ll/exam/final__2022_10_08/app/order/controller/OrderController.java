@@ -44,7 +44,7 @@ public class OrderController {
     public String orderDetail(Model model, @RequestParam long id){
         Order order = orderService.findById(id);
         model.addAttribute("order",order);
-        return "/order/"+id;
+        return "/order/detail";
     }
 
     @PreAuthorize("isAuthenticated()")

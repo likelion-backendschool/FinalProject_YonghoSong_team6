@@ -1,30 +1,26 @@
-<!DOCTYPE html>
-<html layout:decorate="~{layout/layout.html}">
-
-<head>
-    <title>도서 목록</title>
-</head>
-
-<body>
 <main layout:fragment="main">
-    <section class="section section-post-list container mx-auto">
-
-        <div class="px-2 pt-4">
-            <h1 class="font-bold text-lg">
-                <i class="fa-solid fa-book"></i>
-                도서 목록
-            </h1>
-
-            <div class="mt-2">
-                <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-                    <li th:each="order : ${orders}">
-                        <th:block th:replace="fragment/orderListItem :: orderListItem" ></th:block>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-</main>
-</body>
-</html>
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>주문회원</th>
+            <th>주문이름</th>
+            <th>주문준비</th>
+            <th>결제여부</th>
+            <th>결제날짜</th>
+            <th>취소여부</th>
+            <th>환불여부</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="order : ${orders}">
+            <td><span> th:text = "$order.member.username" </span></td>
+            <td><span> th:text = "$order.name" </span></td>
+            <td><span> th:text = "$order.readyStatus" </span></td>
+            <td><span> th:text = "$order.isPaid" </span></td>
+            <td><span> th:text = "$order.payDate" </span></td>
+            <td><span> th:text = "$order.isCanceled" </span></td>
+            <td><span> th:text = "$order.isRefunded" </span></td>
+        </tr>
+    </tbody>
+</table>
