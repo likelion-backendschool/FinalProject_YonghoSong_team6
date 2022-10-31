@@ -1,7 +1,9 @@
 package com.ll.exam.final__2022_10_08.app.base.initData;
 
+import com.ll.exam.final__2022_10_08.app.cart.service.CartService;
 import com.ll.exam.final__2022_10_08.app.member.entity.Member;
 import com.ll.exam.final__2022_10_08.app.member.service.MemberService;
+import com.ll.exam.final__2022_10_08.app.order.service.OrderService;
 import com.ll.exam.final__2022_10_08.app.post.service.PostService;
 import com.ll.exam.final__2022_10_08.app.product.entity.Product;
 import com.ll.exam.final__2022_10_08.app.product.service.ProductService;
@@ -19,7 +21,9 @@ public class NotProdInitData {
     CommandLineRunner initData(
             MemberService memberService,
             PostService postService,
-            ProductService productService
+            ProductService productService,
+            CartService cartService,
+            OrderService orderService
     ) {
         return args -> {
             if (initDataDone) {
@@ -64,11 +68,16 @@ public class NotProdInitData {
             postService.write(member2, "제목 7", "내용 7", "내용 7", "#IT# 프론트엔드 #HTML #CSS");
             postService.write(member2, "제목 8", "내용 8", "내용 8", "#IT #스프링부트 #자바");
 
-            Product product1 = productService.create(member1, "상품명1 상품명1 상품명1 상품명1 상품명1 상품명1", 30_000, "카프카", "#IT #카프카");
+            Product product1 = productService.create(member1, "상품명1", 30_000, "카프카", "#IT #카프카");
             Product product2 = productService.create(member2, "상품명2", 40_000, "스프링부트", "#IT #REACT");
             Product product3 = productService.create(member1, "상품명3", 50_000, "REACT", "#IT #REACT");
             Product product4 = productService.create(member2, "상품명4", 60_000, "HTML", "#IT #HTML");
 
+            cartService.addItem(member2,product1);
+            cartService.addItem(member2,product2);
+            cartService.addItem(member2,product3);
+
+            orderService.createFromCart(member2);
         };
     }
 }
