@@ -2,6 +2,8 @@ package com.ll.exam.final__2022_10_08.app.base.initData;
 
 import com.ll.exam.final__2022_10_08.app.cart.service.CartService;
 import com.ll.exam.final__2022_10_08.app.member.entity.Member;
+import com.ll.exam.final__2022_10_08.app.member.entity.emum.AuthLevel;
+import com.ll.exam.final__2022_10_08.app.member.repository.MemberRepository;
 import com.ll.exam.final__2022_10_08.app.member.service.MemberService;
 import com.ll.exam.final__2022_10_08.app.order.entity.Order;
 import com.ll.exam.final__2022_10_08.app.order.repository.OrderRepository;
@@ -30,7 +32,8 @@ public class NotProdInitData {
             ProductService productService,
             CartService cartService,
             OrderService orderService,
-            OrderRepository orderRepository
+            OrderRepository orderRepository,
+            MemberRepository memberRepository
     ) {
         return args -> {
             if (initDataDone) {
@@ -41,6 +44,9 @@ public class NotProdInitData {
 
             Member member1 = memberService.join("user1", "1234", "user1@test.com", null);
             Member member2 = memberService.join("user2", "1234", "user2@test.com", "홍길순");
+            Member member3 = memberService.join("user3", "1234", "user3@test.com", "Admin");
+            member3.setAuthLevel(AuthLevel.ADMIN);
+            memberRepository.save(member3);
 
             postService.write(
                     member1,
