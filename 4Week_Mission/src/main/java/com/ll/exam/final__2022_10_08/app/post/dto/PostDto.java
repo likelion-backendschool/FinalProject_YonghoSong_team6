@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @Builder
-@RequiredArgsConstructor
 public class PostDto {
     Long id;
     String subject;

@@ -2,10 +2,10 @@ package com.ll.exam.final__2022_10_08.app.postTag.service;
 
 import com.ll.exam.final__2022_10_08.app.member.entity.Member;
 import com.ll.exam.final__2022_10_08.app.post.entity.Post;
-import com.ll.exam.final__2022_10_08.app.postKeyword.entity.PostKeyword;
-import com.ll.exam.final__2022_10_08.app.postKeyword.service.PostKeywordService;
 import com.ll.exam.final__2022_10_08.app.postTag.entity.PostTag;
 import com.ll.exam.final__2022_10_08.app.postTag.repository.PostTagRepository;
+import com.ll.exam.final__2022_10_08.app.postkeyword.entity.PostKeyword;
+import com.ll.exam.final__2022_10_08.app.postkeyword.service.PostKeywordService;
 import com.ll.exam.final__2022_10_08.app.productTag.entity.ProductTag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

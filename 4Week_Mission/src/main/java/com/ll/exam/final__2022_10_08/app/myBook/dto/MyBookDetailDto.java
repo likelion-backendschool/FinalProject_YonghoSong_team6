@@ -17,6 +17,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @Builder
+@RequiredArgsConstructor
 public class MyBookDetailDto{ //상속해도 될 듯..?
     Long id;
     List<Integer> createDate;
