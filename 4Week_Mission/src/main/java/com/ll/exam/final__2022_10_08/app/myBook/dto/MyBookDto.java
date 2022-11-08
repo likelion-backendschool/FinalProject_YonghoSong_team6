@@ -4,13 +4,12 @@ import com.ll.exam.final__2022_10_08.app.member.entity.Member;
 import com.ll.exam.final__2022_10_08.app.myBook.entity.MyBook;
 import com.ll.exam.final__2022_10_08.app.product.dto.ProductDto;
 import com.ll.exam.final__2022_10_08.app.product.entity.Product;
+import com.ll.exam.final__2022_10_08.util.DateTimeParser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,39 +21,28 @@ public class MyBookDto {
     List<Integer> createDate;
     List<Integer> modifyDate;
     Long ownerId;
-    List<ProductDto> product;
+    ProductDto product;
     Long authorId;
     String authorName;
     String subject;
 
     static MyBookDto fromEntity(MyBook myBook){
 
-
         Product productEntity = myBook.getProduct();
         Member author = productEntity.getAuthor();
         Member owner = myBook.getOwner();
-//        List<Integer> createDateList = new ArrayList<>();
-//        createDateList.add(myBook.getCreateDate().getYear());
-//        createDateList.add(myBook.getCreateDate().getMonth());
-//        createDateList.add(myBook.getCreateDate().getYear());
-//        createDateList.add(myBook.getCreateDate().getYear());
-//
-//
-//        LocalDateTime modifyDateObj = myBook.getModifyDate();
-//
+        List<Integer> createDateList = DateTimeParser.dateTimeToIntegerList(myBook.getCreateDate());
+        List<Integer> modifyDateList = DateTimeParser.dateTimeToIntegerList(myBook.getModifyDate());
 
         return MyBookDto.builder()
                 .id(myBook.getId())
-                .createDate()
-                .modifyDate()
-
+                .createDate(createDateList)
+                .modifyDate(modifyDateList)
                 .ownerId(owner.getId())
-                //product
-
+                .product(ProductDto.fromEntity(productEntity))
                 .authorId(author.getId())
                 .authorName(author.getNickname())
                 .subject(productEntity.getSubject())
                 .build();
     }
-
 }
