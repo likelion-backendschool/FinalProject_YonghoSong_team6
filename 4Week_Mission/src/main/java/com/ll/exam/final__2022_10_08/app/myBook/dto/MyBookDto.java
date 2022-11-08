@@ -10,11 +10,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @Builder
+
 @RequiredArgsConstructor
 public class MyBookDto {
     Long id;
@@ -26,7 +28,7 @@ public class MyBookDto {
     String authorName;
     String subject;
 
-    static MyBookDto fromEntity(MyBook myBook){
+    static MyBookDto fromEntity(@NotNull MyBook myBook){
 
         Product productEntity = myBook.getProduct();
         Member author = productEntity.getAuthor();

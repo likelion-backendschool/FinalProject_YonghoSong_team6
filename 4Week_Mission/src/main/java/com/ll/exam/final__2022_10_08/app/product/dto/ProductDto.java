@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import javax.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class ProductDto {
     List<Integer> createDate;
     List<Integer> modifyDate;
 
-    public static ProductDto fromEntity(Product product){
+    public static ProductDto fromEntity(@NotNull Product product){
         return ProductDto.builder()
                 .id(product.getId())
                 .createDate(DateTimeParser.dateTimeToIntegerList(product.getCreateDate()))
