@@ -28,12 +28,11 @@ public class MemberRestController {
     private final PasswordEncoder passwordEncoder;
     private final Rq rq;
 
-
+    //리퀘스트에 토큰 담는 법?
+    //세션 방식에서 완전한 변경 필요함
     //@PreAuthorize("isAuthenticated()")
     @GetMapping("/api/v1/member/me")
     public ResponseEntity<RsData> showProfile(){
-        //리퀘스트에 토큰 담는 법?
-        //세션 방식에서 완전한 변경 필요함
 
         Long id = rq.getMember() != null ? rq.getMember().getId() : 1;
         Member member = memberService.findById(id).orElseThrow(()->{throw new RuntimeException("해당 ID의 유저가 없습니다.");});
@@ -51,7 +50,7 @@ public class MemberRestController {
     }
 
 
-
+    //  https://www.youtube.com/watch?v=EMsXhobcUDc
     @PreAuthorize("isAnonymous()")
     @PostMapping("/api/v1/member/login")
     public ResponseEntity<RsData> login(@RequestBody LoginDto loginDto) {
