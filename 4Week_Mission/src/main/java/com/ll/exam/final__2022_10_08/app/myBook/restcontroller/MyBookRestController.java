@@ -26,7 +26,7 @@ public class MyBookRestController {
 
     //@PreAuthorize("isAuthenticated()")
     @GetMapping("/api/v1/myBooks")
-    public ResponseEntity<RsData>  BooksList(){
+    public ResponseEntity<RsData> booksList(){
 
         Long id = rq.getMember() != null ? rq.getMember().getId() : 1; //임시, 로그인 정보 못 가져올시 1로
         List<MyBookDto> myBooks = myBookService.findAllByOwnerId(id);
@@ -44,7 +44,7 @@ public class MyBookRestController {
 
     //@PreAuthorize("isAuthenticated()")
     @GetMapping("/api/v1/myBooks/{id}")
-    public ResponseEntity<RsData>  BookDetail(long id){
+    public ResponseEntity<RsData> bookDetail(long id){
 
         MyBook myBook = myBookService.findById(id);
         MyBookDetailDto myBookDetailDto = MyBookDetailDto.fromEntity(myBook);
