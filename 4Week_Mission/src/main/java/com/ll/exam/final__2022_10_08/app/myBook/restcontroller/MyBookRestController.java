@@ -11,6 +11,7 @@ import com.ll.exam.final__2022_10_08.app.myBook.service.MyBookService;
 import com.ll.exam.final__2022_10_08.app.post.entity.Post;
 import com.ll.exam.final__2022_10_08.app.postTag.entity.PostTag;
 import com.ll.exam.final__2022_10_08.app.postTag.service.PostTagService;
+import com.ll.exam.final__2022_10_08.app.postkeyword.entity.PostKeyword;
 import com.ll.exam.final__2022_10_08.app.product.dto.ProductDto;
 import com.ll.exam.final__2022_10_08.app.product.entity.Product;
 import com.ll.exam.final__2022_10_08.app.product.service.ProductService;
@@ -61,10 +62,16 @@ public class MyBookRestController {
         MyBookDetailDto myBookDetailDto = MyBookDetailDto.fromEntity(myBook);
 
 
-//        PostTag postTag = postTagService.
-//        List<Post> posts = myBook.getProduct().getPostKeyword().getContent()
-        // List<PostDto> bookChapters =
-        // myBookDetailDto.setBookChapters(bookChapters);
+        Product product = myBook.getProduct();
+        //Long postKeywordId = product.getPostKeyword().getId();
+        //PostTag postTag = postTagService.
+
+
+        //PostTag postTag = postTagService.
+        //List<Post> posts = myBook.getProduct().getPostKeyword().getContent()
+        //List<PostDto> bookChapters =
+        //myBookDetailDto.setBookChapters(bookChapters);
+
         return Ut.spring.responseEntityOf(
                 RsData.of(
                         "S-1",
