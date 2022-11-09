@@ -4,6 +4,7 @@ package com.ll.exam.final__2022_10_08.app.member.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ll.exam.final__2022_10_08.app.base.entity.BaseEntity;
 import com.ll.exam.final__2022_10_08.app.member.entity.emum.AuthLevel;
+import com.ll.exam.final__2022_10_08.util.Ut;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +16,7 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Setter
@@ -66,5 +68,16 @@ public class Member extends BaseEntity {
         }
 
         return authorities;
+    }
+
+    public Map<String, Object> getAccessTokenClaims() {
+        return Ut.mapOf(
+                "id", getId(),
+                "createDate", getCreateDate(),
+                "modifyDate", getModifyDate(),
+                "username", getUsername(),
+                "email", getEmail(),
+                "authorities", genAuthorities() //수정해야 할 듯. gen 을 쓰는게 말이 되나
+        );
     }
 }
