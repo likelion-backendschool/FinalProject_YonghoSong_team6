@@ -1,8 +1,7 @@
-package com.ll.exam.final__2022_10_08.app.myBook.restController;
+package com.ll.exam.final__2022_10_08.app.myBook.restcontroller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
