@@ -1,14 +1,18 @@
 package com.ll.exam.final__2022_10_08.app.member.restcontroller;
 
 import com.ll.exam.final__2022_10_08.app.base.dto.RsData;
+import com.ll.exam.final__2022_10_08.app.base.rq.Rq;
+import com.ll.exam.final__2022_10_08.app.member.dto.MemberDto;
 import com.ll.exam.final__2022_10_08.app.member.entity.Member;
 import com.ll.exam.final__2022_10_08.app.member.service.MemberService;
+import com.ll.exam.final__2022_10_08.app.security.dto.MemberContext;
 import com.ll.exam.final__2022_10_08.util.Ut;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,12 +26,34 @@ import javax.servlet.http.HttpServletResponse;
 public class MemberRestController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
+    private final Rq rq;
 
 
+    //@PreAuthorize("isAuthenticated()")
     @GetMapping("/api/v1/member/me")
-    void showProfile(){
+    public ResponseEntity<RsData> showProfile(){
+        //리퀘스트에 토큰 담는 법?
+        //세션 방식에서 완전한 변경 필요함
+
+        Long id = rq.getMember() != null ? rq.getMember().getId() : 1;
+        Member member = memberService.findById(id).orElseThrow(()->{throw new RuntimeException("해당 ID의 유저가 없습니다.");});
+        MemberDto memberDto = MemberDto.fromEntity(member);
+
+        return Ut.spring.responseEntityOf(
+                RsData.of(
+                        "S-1",
+                        "회원 조회 성공",
+                        Ut.mapOf(
+                                "member", memberDto
+                        )
+                )
+                //,Ut.spring.httpHeadersOf("Authentication", accessToken)
+        );
     }
 
+
+
+    @PreAuthorize("isAnonymous()")
     @PostMapping("/api/v1/member/login")
     public ResponseEntity<RsData> login(@RequestBody LoginDto loginDto) {
         if (loginDto.isNotValid()) {
@@ -66,4 +92,6 @@ public class MemberRestController {
             return username == null || password == null || username.trim().length() == 0 || password.trim().length() == 0;
         }
     }
+
+
 }

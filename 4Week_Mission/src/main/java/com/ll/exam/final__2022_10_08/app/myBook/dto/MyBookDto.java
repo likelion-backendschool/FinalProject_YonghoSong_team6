@@ -28,7 +28,7 @@ public class MyBookDto {
     String authorName;
     String subject;
 
-    static MyBookDto fromEntity(@NotNull MyBook myBook){
+    public static MyBookDto fromEntity(@NotNull MyBook myBook){
 
         Product productEntity = myBook.getProduct();
         Member author = productEntity.getAuthor();

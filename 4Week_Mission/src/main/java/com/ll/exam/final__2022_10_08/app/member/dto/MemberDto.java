@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.lang.Nullable;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @RequiredArgsConstructor
-public class memberDto {
+public class MemberDto {
     Long id;
     List<Integer> createDate;
     List<Integer> modifyDate;
@@ -23,11 +22,11 @@ public class memberDto {
     boolean emailVerified = false;
     String nickname = "";
 
-    public static memberDto fromEntity(Member member){
+    public static MemberDto fromEntity(Member member){
         List<Integer> createDateList = DateTimeParser.dateTimeToIntegerList(member.getCreateDate());
         List<Integer> modifyDateList = DateTimeParser.dateTimeToIntegerList(member.getModifyDate());
 
-        return memberDto.builder()
+        return MemberDto.builder()
                 .id(member.getId())
                 .createDate(createDateList)
                 .modifyDate(modifyDateList)
