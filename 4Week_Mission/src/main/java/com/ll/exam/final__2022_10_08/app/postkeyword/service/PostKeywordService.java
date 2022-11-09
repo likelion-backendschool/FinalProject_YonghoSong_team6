@@ -1,7 +1,8 @@
-package com.ll.exam.final__2022_10_08.app.postKeyword.service;
+package com.ll.exam.final__2022_10_08.app.postkeyword.service;
 
-import com.ll.exam.final__2022_10_08.app.postKeyword.entity.PostKeyword;
-import com.ll.exam.final__2022_10_08.app.postKeyword.repository.PostKeywordRepository;
+
+import com.ll.exam.final__2022_10_08.app.postkeyword.entity.PostKeyword;
+import com.ll.exam.final__2022_10_08.app.postkeyword.repository.PostKeywordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

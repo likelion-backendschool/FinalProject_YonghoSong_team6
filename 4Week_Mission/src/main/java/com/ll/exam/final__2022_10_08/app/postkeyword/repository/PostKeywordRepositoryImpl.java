@@ -1,6 +1,7 @@
-package com.ll.exam.final__2022_10_08.app.postKeyword.repository;
+package com.ll.exam.final__2022_10_08.app.postkeyword.repository;
 
-import com.ll.exam.final__2022_10_08.app.postKeyword.entity.PostKeyword;
+import com.ll.exam.final__2022_10_08.app.postkeyword.entity.PostKeyword;
+
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -8,8 +9,8 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.ll.exam.final__2022_10_08.app.postKeyword.entity.QPostKeyword.postKeyword;
 import static com.ll.exam.final__2022_10_08.app.postTag.entity.QPostTag.postTag;
+import static com.ll.exam.final__2022_10_08.app.postkeyword.entity.QPostKeyword.postKeyword;
 
 @RequiredArgsConstructor
 public class PostKeywordRepositoryImpl implements PostKeywordRepositoryCustom {
@@ -22,6 +23,7 @@ public class PostKeywordRepositoryImpl implements PostKeywordRepositoryCustom {
                 .from(postKeyword)
                 .innerJoin(postTag)
                 .on(postKeyword.eq(postTag.postKeyword))
+                //.on(postKeyword.eq((Expression<? super PostKeyword>) postTag.postKeyword))
                 .where(postTag.member.id.eq(authorId))
                 .orderBy(postTag.post.id.desc())
                 .groupBy(postKeyword.id)

@@ -4,7 +4,7 @@ import com.ll.exam.final__2022_10_08.app.AppConfig;
 import com.ll.exam.final__2022_10_08.app.base.entity.BaseEntity;
 import com.ll.exam.final__2022_10_08.app.cart.entity.CartItem;
 import com.ll.exam.final__2022_10_08.app.member.entity.Member;
-import com.ll.exam.final__2022_10_08.app.postKeyword.entity.PostKeyword;
+import com.ll.exam.final__2022_10_08.app.postkeyword.entity.PostKeyword;
 import com.ll.exam.final__2022_10_08.app.productTag.entity.ProductTag;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

@@ -1,4 +1,4 @@
-package com.ll.exam.final__2022_10_08.app.postKeyword.entity;
+package com.ll.exam.final__2022_10_08.app.postkeyword.entity;
 
 import com.ll.exam.final__2022_10_08.app.base.entity.BaseEntity;
 import lombok.*;

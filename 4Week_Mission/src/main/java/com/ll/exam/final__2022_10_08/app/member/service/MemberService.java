@@ -36,6 +36,7 @@ public class MemberService {
     private final EmailVerificationService emailVerificationService;
     private final EmailService emailService;
     private final CashService cashService;
+    //private final JwtProvider jwtProvider;
 
     @Transactional
     public Member join(String username, String password, String email, String nickname) {
