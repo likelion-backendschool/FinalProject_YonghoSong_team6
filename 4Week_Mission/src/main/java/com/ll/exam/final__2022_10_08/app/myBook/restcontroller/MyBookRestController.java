@@ -30,7 +30,7 @@ public class MyBookRestController {
         Long id = rq.getMember() != null ? rq.getMember().getId() : 1;
         List<MyBookDto> myBooks = myBookService.findByOwnerId(id);
 
-        return  return Ut.spring.responseEntityOf(
+       return Ut.spring.responseEntityOf(
                 RsData.of(
                         "S-1",
                         "내 책 리스트 조회 성공",
