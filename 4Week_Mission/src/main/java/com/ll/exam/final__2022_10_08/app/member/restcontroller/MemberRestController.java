@@ -47,7 +47,6 @@ public class MemberRestController {
                                 "member", memberDto
                         )
                 )
-                //,Ut.spring.httpHeadersOf("Authentication", accessToken)
         );
     }
 

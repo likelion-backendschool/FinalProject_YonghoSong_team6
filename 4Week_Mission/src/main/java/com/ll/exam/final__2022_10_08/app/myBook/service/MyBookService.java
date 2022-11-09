@@ -1,6 +1,7 @@
 package com.ll.exam.final__2022_10_08.app.myBook.service;
 
 import com.ll.exam.final__2022_10_08.app.base.dto.RsData;
+import com.ll.exam.final__2022_10_08.app.myBook.dto.MyBookDetailDto;
 import com.ll.exam.final__2022_10_08.app.myBook.dto.MyBookDto;
 import com.ll.exam.final__2022_10_08.app.myBook.entity.MyBook;
 import com.ll.exam.final__2022_10_08.app.myBook.repository.MyBookRepository;
@@ -41,13 +42,16 @@ public class MyBookService {
         return RsData.of("S-1", "나의 책장에서 제거되었습니다.");
     }
 
-    public List<MyBookDto> findByOwnerId(Long id)
-    {
+    public List<MyBookDto> findAllByOwnerId(Long id){
         List<MyBook> myBooks =  myBookRepository.findAllByOwnerId(id);
         List<MyBookDto> myBookDtos = new ArrayList<>();
         for(MyBook myBook : myBooks) {
             myBookDtos.add(MyBookDto.fromEntity(myBook));
         }
         return myBookDtos;
+    }
+
+    public MyBook findById(Long id){
+        return myBookRepository.findById(id).orElse(null);
     }
 }

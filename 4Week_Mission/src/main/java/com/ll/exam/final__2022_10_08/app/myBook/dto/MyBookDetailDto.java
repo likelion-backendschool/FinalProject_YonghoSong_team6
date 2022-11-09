@@ -29,7 +29,7 @@ public class MyBookDetailDto{ //상속해도 될 듯..?
     String subject;
     List<PostDto> bookChapters; //밖에서 만들어서 넣어줘야 함.
 
-    static MyBookDetailDto fromEntity(@NotNull MyBook myBook){
+    public static MyBookDetailDto fromEntity(@NotNull MyBook myBook){
 
         Product productEntity = myBook.getProduct();
         Member author = productEntity.getAuthor();
